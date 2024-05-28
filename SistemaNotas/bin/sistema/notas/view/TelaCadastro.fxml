@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="603.0" maxWidth="460.0" minHeight="460.0" minWidth="377.0" prefHeight="603.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.notas.controller.AlunoController">
+   <children>
+      <Pane maxHeight="603.0" prefHeight="603.0" prefWidth="448.0" style="-fx-background-color: #170B2A;">
+         <children>
+            <Pane layoutX="80.0" layoutY="46.0" prefHeight="511.0" prefWidth="288.0" style="-fx-background-color: #42335D; -fx-background-radius: 20;">
+               <children>
+                  <Label layoutX="94.0" layoutY="58.0" style="-fx-font-weight: bold;" text="Cadastro" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="129.0" text="Matrícula:" textFill="#ebe4e4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfMatricula" layoutX="137.0" layoutY="132.0" prefHeight="9.0" prefWidth="116.0" />
+                  <Label layoutX="35.0" layoutY="175.0" text="Nome:" textFill="#ebe4e4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfNome" layoutX="137.0" layoutY="178.0" prefHeight="25.0" prefWidth="116.0" />
+                  <Label layoutX="35.0" layoutY="222.0" text="Email:" textFill="#ebe4e4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfEmail" layoutX="137.0" layoutY="225.0" prefHeight="25.0" prefWidth="116.0" />
+                  <Label layoutX="35.0" layoutY="311.0" text="Senha:" textFill="#ebe4e4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="tfSenha" layoutX="137.0" layoutY="314.0" prefHeight="25.0" prefWidth="116.0" />
+                  <Button fx:id="btnCadastrar" layoutX="100.0" layoutY="418.0" mnemonicParsing="false" onAction="#cadastrarAluno" style="-fx-background-color: #008B00;" text="Cadastrar" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Button>
+                  <Label layoutX="35.0" layoutY="267.0" text="Curso:" textFill="#ebe4e4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfCurso" layoutX="137.0" layoutY="270.0" prefHeight="25.0" prefWidth="116.0" />
+                  <Label fx:id="lStatusCad" layoutX="34.0" layoutY="399.0" textFill="#f22323">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

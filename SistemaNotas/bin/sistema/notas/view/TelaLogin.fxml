@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="603.0" maxWidth="460.0" minHeight="460.0" minWidth="377.0" prefHeight="603.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.notas.controller.AlunoController">
+   <children>
+      <Pane maxHeight="603.0" prefHeight="603.0" prefWidth="448.0" style="-fx-background-color: #170B2A;">
+         <children>
+            <Pane layoutX="80.0" layoutY="46.0" prefHeight="511.0" prefWidth="288.0" style="-fx-background-color: #42335D; -fx-background-radius: 20;">
+               <children>
+                  <Label layoutX="112.0" layoutY="79.0" style="-fx-font-weight: bold;" text="Login" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="35.0" layoutY="176.0" text="Matrícula:" textFill="#ebe4e4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfMatriculaLogin" layoutX="137.0" layoutY="179.0" prefHeight="9.0" prefWidth="116.0" />
+                  <Label layoutX="35.0" layoutY="242.0" text="Senha:" textFill="#ebe4e4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="tfSenhaLogin" layoutX="137.0" layoutY="245.0" prefHeight="25.0" prefWidth="116.0" />
+                  <Button fx:id="btnEntrar" layoutX="105.0" layoutY="374.0" mnemonicParsing="false" onAction="#loginAluno" style="-fx-background-color: #008B00;" text="Entrar" textFill="WHITE">
+					   <font>
+					     <Font size="16.0" />
+					  </font>
+				  </Button>
+                  
+                  <Label fx:id="lStatusLogin" layoutX="36.0" layoutY="325.0" prefHeight="19.0" prefWidth="217.0" style="-fx-text-alignment: center;" textFill="#f21a1a">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnCadastreSe" layoutX="144.0" layoutY="447.0" mnemonicParsing="false" onAction="#MudarTelaLogParaCad" prefHeight="27.0" prefWidth="116.0" style="-fx-background-color: transparent;" text="Cadastre-se" textFill="#d0d0d0" underline="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="47.0" layoutY="452.0" prefHeight="19.0" prefWidth="148.0" text="Não possui login?" textFill="#d0d0d0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+         
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
