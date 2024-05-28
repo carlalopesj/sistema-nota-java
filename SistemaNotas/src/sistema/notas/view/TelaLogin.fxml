@@ -42,7 +42,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnCadastreSe" layoutX="144.0" layoutY="447.0" mnemonicParsing="false" onAction="#MudarTelaLogParaCad" prefHeight="27.0" prefWidth="116.0" style="-fx-background-color: transparent;" text="Cadastre-se" textFill="#d0d0d0" underline="true">
+                  <Button fx:id="btnCadastreSe" layoutX="144.0" layoutY="447.0" mnemonicParsing="false" onAction="#mudarTelaLogParaCad" prefHeight="27.0" prefWidth="116.0" style="-fx-background-color: transparent;" text="Cadastre-se" textFill="#d0d0d0" underline="true">
                      <font>
                         <Font size="14.0" />
                      </font>

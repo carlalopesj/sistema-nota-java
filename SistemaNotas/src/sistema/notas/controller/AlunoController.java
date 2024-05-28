@@ -31,35 +31,36 @@ public class AlunoController {
 	
 	@FXML
 	private void cadastrarAluno() {
-		System.out.println("Botão cadastrar foi clicado");
+		System.out.println("Botão cadastrar foi clicado"); //Teste do botão
+		//Recuperando entrada do usuário
 		String matriculaStr = tfMatricula.getText();
 		String nome = tfNome.getText();
 		String email = tfEmail.getText();
 		String curso = tfCurso.getText();
 		String senha = tfSenha.getText();
 		
+		//Validando campos preenchidos
 		if (matriculaStr.isEmpty() || nome.isEmpty()|| email.isEmpty() || curso.isEmpty() || senha.isEmpty()) {
 			lStatusCad.setText("Por favor, preencha todos os campos.");
 	        return;
 	    } else {
-	    	int matricula = Integer.parseInt(matriculaStr);
-	    	
-	    	Aluno aluno = new Aluno(matricula, nome, email,curso, senha);
-			AlunoDAO alunoDAO = new AlunoDAO();
-			alunoDAO.cadastrarAluno(aluno);
-			
-			try {
-				Parent root = FXMLLoader.load(getClass().getResource("/sistema/notas/view/TelaLogin.fxml"));
-				Stage stage = new Stage();
-				Scene scene = new Scene(root);
-				stage.setScene(scene);
-				stage.show();
-				//Fechar a tela atual
-				Stage StageAtual = (Stage) tfMatricula.getScene().getWindow();
-	            StageAtual.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	    	try {
+	    		//Converte string para inteiro
+	    		int matricula = Integer.parseInt(matriculaStr);
+	    		
+	    		//Instancia um novo aluno, com os atributos informados
+	    		Aluno aluno = new Aluno(matricula, nome, email,curso, senha);
+	    		//Acesso ao banco de dados por meio do DAO
+	    		AlunoDAO alunoDAO = new AlunoDAO();
+	    		if(!alunoDAO.cadastrarAluno(aluno)) {
+	    			lStatusCad.setText("Matrícula já cadastrada");
+	    		} else {
+	    			//Ao se cadastrar, abre-se a tela de login
+	    			trocarTela("/sistema/notas/view/TelaLogin.fxml");
+	    		}
+	    	} catch (NumberFormatException e) { //Verifica se foi digitado um inteiro
+	    		lStatusCad.setText("Matrícula inválida");
+	    	}
 	    }
 	}
 	
@@ -73,32 +74,28 @@ public class AlunoController {
 	
 	@FXML
 	private void loginAluno() {
-	    System.out.println("Botão entrar foi clicado");
+	    System.out.println("Botão entrar foi clicado"); 
 	    String matriculaStr = tfMatriculaLogin.getText();
 	    String senha = tfSenhaLogin.getText();
-	    
-	    if (matriculaStr.isEmpty() || senha.isEmpty()) {
-	        lStatusLogin.setText("Por favor, preencha todos os campos.");
-	        return;
-	    }
+
 	    try {
 	        int matricula = Integer.parseInt(matriculaStr);
 	        
 	        AlunoDAO alunoDAO = new AlunoDAO();
-	        boolean iniciarSistema = alunoDAO.validarAluno(matricula, senha);
-	        if (iniciarSistema) {
+	        boolean iniciarSistema = alunoDAO.validarAluno(matricula, senha); //Verificando se existe esse aluno no banco de dados
+	        if (iniciarSistema) { //Se existir, será levado a tela principal
 	            System.out.println("Login com Sucesso - Tela Principal"); 
 	        } else {
-	            lStatusLogin.setText("Ooops. Matrícula ou senha inválidos.");
+	            lStatusLogin.setText("Ooops. Matrícula ou senha inválidos."); //Caso contrário, informa-se um erro
 	        }
-	    } catch (NumberFormatException e) {
+	    } catch (NumberFormatException e) { //Caso insira outro tipo na matrícula que não seja inteiro
 	        lStatusLogin.setText("Por favor, insira uma matrícula válida.");
 	    }
 	}
 	
-	//Método para mudar da tela do login para cadastro
+	//Método para mudar da tela do login para cadastro por meio de um evento no botão
 	@FXML
-	public void MudarTelaLogParaCad(ActionEvent event) {
+	private void mudarTelaLogParaCad(ActionEvent event) {
 		System.out.println("Mudar tela clicado");
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/sistema/notas/view/TelaCadastro.fxml"));
@@ -106,10 +103,27 @@ public class AlunoController {
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
-			
+			//Fechar a tela atual
 			Stage StageAtual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 			StageAtual.close();
 		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Método para trocar de tela sem o evento
+	private void trocarTela(String caminhoFXML) {
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource(caminhoFXML));
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+			// Fechar a tela atual
+			Stage stageAtual = (Stage) tfMatricula.getScene().getWindow();
+			stageAtual.close();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

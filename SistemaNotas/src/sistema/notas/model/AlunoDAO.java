@@ -7,14 +7,14 @@ import java.sql.SQLException;
 
 public class AlunoDAO {
 
-	public void cadastrarAluno(Aluno aluno) {
-		//Comendo DML - Linguagem de manipulação de dados
+	public boolean cadastrarAluno(Aluno aluno) {
+		//DML - Linguagem de manipulação de dados
 		String sql = "INSERT INTO Aluno (matriculaAluno, nomeAluno, emailAluno, cursoAluno, senhaAluno) VALUES (?, ?, ?, ?, ?)";
 		
 		//Preparando a declaração
 		PreparedStatement ps = null;
 		
-		//Tentando adicionar as linhas
+		//Tentando adicionar o aluno
 		try {
 			
 			ps = Conexao.getConexao().prepareStatement(sql);
@@ -27,15 +27,18 @@ public class AlunoDAO {
 			ps.execute();
 			ps.close();
 			
+			return true; //Verificação para o AlunoController
 		} catch (SQLException e) {
-			e.printStackTrace(); //Mostrar o erro
+			e.printStackTrace();
+            return false; //Verificação para o AlunoController
 		}
 		
 	}
 	
+	//Validar login do aluno
 	public boolean validarAluno(int matriculaAluno, String senhaAluno) {
 		boolean validado = false;
-		
+		//Consultando o aluno com os dados informados
 		String query = "SELECT * FROM Aluno WHERE matriculaAluno = ? AND senhaAluno = ?";
 		
 		try {
@@ -56,7 +59,7 @@ public class AlunoDAO {
 			e.printStackTrace();
 		}
 		
-		return validado;
+		return validado; //True ou False
 	}
 	
 }
