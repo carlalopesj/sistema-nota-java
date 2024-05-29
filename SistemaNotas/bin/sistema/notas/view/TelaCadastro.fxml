@@ -53,7 +53,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="tfCurso" layoutX="137.0" layoutY="270.0" prefHeight="25.0" prefWidth="116.0" />
-                  <Label fx:id="lStatusCad" layoutX="34.0" layoutY="399.0" textFill="#f22323">
+                  <Label fx:id="lStatusCad" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="379.0" prefHeight="19.0" prefWidth="288.0" textFill="#f22323">
                      <font>
                         <Font size="13.0" />
                      </font></Label>

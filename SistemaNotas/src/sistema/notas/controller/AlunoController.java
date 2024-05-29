@@ -30,7 +30,7 @@ public class AlunoController {
 	private Label lStatusCad;
 	
 	@FXML
-	private void cadastrarAluno() {
+	private void cadastrarAluno(ActionEvent event) {
 		System.out.println("Botão cadastrar foi clicado"); //Teste do botão
 		//Recuperando entrada do usuário
 		String matriculaStr = tfMatricula.getText();
@@ -53,13 +53,13 @@ public class AlunoController {
 	    		//Acesso ao banco de dados por meio do DAO
 	    		AlunoDAO alunoDAO = new AlunoDAO();
 	    		if(!alunoDAO.cadastrarAluno(aluno)) {
-	    			lStatusCad.setText("Matrícula já cadastrada");
+	    			lStatusCad.setText("Matrícula já cadastrada.");
 	    		} else {
 	    			//Ao se cadastrar, abre-se a tela de login
-	    			trocarTela("/sistema/notas/view/TelaLogin.fxml");
+	    			trocarTela("/sistema/notas/view/TelaLogin.fxml", event);
 	    		}
 	    	} catch (NumberFormatException e) { //Verifica se foi digitado um inteiro
-	    		lStatusCad.setText("Matrícula inválida");
+	    		lStatusCad.setText("Matrícula inválida.");
 	    	}
 	    }
 	}
@@ -73,7 +73,7 @@ public class AlunoController {
 	private Label lStatusLogin;
 	
 	@FXML
-	private void loginAluno() {
+	private void loginAluno(ActionEvent event) {
 	    System.out.println("Botão entrar foi clicado"); 
 	    String matriculaStr = tfMatriculaLogin.getText();
 	    String senha = tfSenhaLogin.getText();
@@ -84,7 +84,8 @@ public class AlunoController {
 	        AlunoDAO alunoDAO = new AlunoDAO();
 	        boolean iniciarSistema = alunoDAO.validarAluno(matricula, senha); //Verificando se existe esse aluno no banco de dados
 	        if (iniciarSistema) { //Se existir, será levado a tela principal
-	            System.out.println("Login com Sucesso - Tela Principal"); 
+	            System.out.println("Login com Sucesso - Tela Principal");
+	            trocarTela("/sistema/notas/view/TelaPrincipal.fxml", event);
 	        } else {
 	            lStatusLogin.setText("Ooops. Matrícula ou senha inválidos."); //Caso contrário, informa-se um erro
 	        }
@@ -97,34 +98,22 @@ public class AlunoController {
 	@FXML
 	private void mudarTelaLogParaCad(ActionEvent event) {
 		System.out.println("Mudar tela clicado");
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/sistema/notas/view/TelaCadastro.fxml"));
-			Stage stage = new Stage();
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-			//Fechar a tela atual
-			Stage StageAtual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-			StageAtual.close();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+		trocarTela("/sistema/notas/view/TelaCadastro.fxml", event);
 	}
 	
 	//Método para trocar de tela sem o evento
-	private void trocarTela(String caminhoFXML) {
-		Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource(caminhoFXML));
-			Stage stage = new Stage();
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-			// Fechar a tela atual
-			Stage stageAtual = (Stage) tfMatricula.getScene().getWindow();
-			stageAtual.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	 private void trocarTela(String caminhoFXML, ActionEvent event) {
+	        try {
+	            Parent root = FXMLLoader.load(getClass().getResource(caminhoFXML));
+	            Stage stage = new Stage();
+	            Scene scene = new Scene(root);
+	            stage.setScene(scene);
+	            stage.show();
+	            // Fechar a tela atual
+	            Stage stageAtual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+	            stageAtual.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	 }
 }

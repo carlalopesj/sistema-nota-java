@@ -29,7 +29,7 @@ public class AlunoDAO {
 			
 			return true; //Verificação para o AlunoController
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Redundância de dados");
             return false; //Verificação para o AlunoController
 		}
 		
