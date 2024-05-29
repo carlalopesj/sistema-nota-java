@@ -10,19 +10,16 @@ public class Conexao {
 	
 	//Método para realizar a conexão
 	public static Connection getConexao() {
-		if (conexao == null) {
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/java_trabalho", "root", "");
-                System.out.println("Conexão estabelecida com sucesso!");
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                System.out.println("Driver não encontrado.");
-            } catch (SQLException e) {
-                e.printStackTrace();
-                System.out.println("Falha ao conectar ao banco de dados.");
-            }
-        }
-        return conexao;
-	} 
+	    if (conexao == null) {
+	        try {
+	            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/java_trabalho", "root", "");
+	            System.out.println("Conexão estabelecida com sucesso!");
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            System.out.println("Falha ao conectar ao banco de dados.");
+	        }
+	    }
+	    return conexao;
+	}
+ 
 }
