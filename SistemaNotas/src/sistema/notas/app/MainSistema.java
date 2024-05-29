@@ -15,6 +15,7 @@ public class MainSistema extends Application{
 			Parent root = FXMLLoader.load(getClass().getResource("/sistema/notas/view/TelaLogin.fxml")); //Representa o conteúdo
 			Scene scene = new Scene(root); //Cria-se a cena - contêiner
 			
+			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Tela de Login"); //Título da tela
 			primaryStage.show(); //Exibindo a tela

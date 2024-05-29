@@ -110,6 +110,7 @@ public class AlunoController {
 	            stage.setScene(scene);
 	            stage.show();
 	            // Fechar a tela atual
+	            stage.setResizable(false);
 	            Stage stageAtual = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 	            stageAtual.close();
 	        } catch (IOException e) {
