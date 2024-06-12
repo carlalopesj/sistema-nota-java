@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sistema.notas.model.Aluno;
-import sistema.notas.model.AlunoDAO;
+import sistema.notas.model.dao.AlunoDAO;
 
 public class AlunoController {
 	
@@ -29,6 +29,7 @@ public class AlunoController {
 	@FXML
 	private Label lStatusCad;
 	
+	//POLIMORFISMO
 	@FXML
 	private void cadastrarAluno(ActionEvent event) {
 		System.out.println("Botão cadastrar foi clicado"); //Teste do botão

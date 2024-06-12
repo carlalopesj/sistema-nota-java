@@ -1,12 +1,16 @@
-package sistema.notas.model;
+package sistema.notas.model.dao;
 
 import sistema.notas.conexao.Conexao;
+import sistema.notas.model.Aluno;
+import sistema.notas.sessao.AlunoSessao;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AlunoDAO {
 
+	//POLIMORFISMO
 	public boolean cadastrarAluno(Aluno aluno) {
 		//DML - Linguagem de manipulação de dados
 		String sql = "INSERT INTO Aluno (matriculaAluno, nomeAluno, emailAluno, cursoAluno, senhaAluno) VALUES (?, ?, ?, ?, ?)";
@@ -48,6 +52,7 @@ public class AlunoDAO {
 			ResultSet rs = ps.executeQuery();
 			
 			if (rs.next()) {
+				AlunoSessao.setIdAlunoLogado(matriculaAluno); //Armazena o valor da matricula e inicia a sessão
 				validado = true;
 			}
 			

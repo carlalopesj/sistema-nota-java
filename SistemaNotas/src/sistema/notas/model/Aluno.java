@@ -1,7 +1,9 @@
 package sistema.notas.model;
+//ABSTRAÇÃO
 
 public class Aluno {
 	
+	//ENCAPSULAMENTO
 	//Atributos de Aluno
 	private int matricula;
 	private String nome;
