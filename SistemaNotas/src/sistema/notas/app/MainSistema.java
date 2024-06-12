@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+//HERANÇA
 //Herança - extends Application - classe principal do aplicativo JavaFX.
 public class MainSistema extends Application{
 
