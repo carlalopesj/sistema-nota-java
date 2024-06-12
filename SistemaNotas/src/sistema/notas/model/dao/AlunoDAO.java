@@ -32,7 +32,6 @@ public class AlunoDAO {
 			System.out.println("Redundância de dados");
             return false; //Verificação para o AlunoController
 		}
-		
 	}
 	
 	//Validar login do aluno
