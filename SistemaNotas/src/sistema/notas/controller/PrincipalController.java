@@ -52,38 +52,17 @@ public class PrincipalController {
         preencherComboBoxTipoAvaliacao();
         preencherComboBoxSemestre();
     }
-	
-	// Método para adicionar uma nota, recebendo uma avaliacao como parâmetro
-    private void adicionarNota(Avaliacao avaliacao) {
-    	System.out.println("Adicionar nota");
-    	try {
-            double valorNota = Double.parseDouble(tfValorNota.getText());
-            int idAvaliacao = avaliacao.getIdAvaliacao(); // Obtendo o ID da avaliação selecionada no ComboBox
-            //System.out.println("Avaliacao nota: " + idAvaliacao);
-            int idAluno = AlunoSessao.getIdAlunoLogado(); //Obtendo o ID do aluno logado
-            Nota nota = new Nota(valorNota, idAvaliacao, idAluno); //Instaciando uma nota, com base nos dados informados
-            NotaDAO notaDAO = new NotaDAO(); //Instanciando DAO
-            notaDAO.cadastrarNota(nota); //Passando nota como parâmetro de cadastro
-        } catch (NumberFormatException e) { //Caso não seja digitado um número
-            e.printStackTrace();
-        }
-    }
-	
-    //Ação para o botão SALVAR
-    @FXML
-	private void salvarDados(ActionEvent event) {
-		//System.out.println("Botão salvar foi clicado");
-		buscarAvaliacao(); //Verifica a existência de uma avaliação
-		//System.out.println(AlunoSessao.getIdAlunoLogado());
-	}
 
     //Preenchendo ComboBox com dados do banco por meio de uma List
-    private void preencherComboBoxDisciplinas() {
-        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-        List<Disciplina> disciplinas = disciplinaDAO.listarDisciplinas();
+	private void preencherComboBoxDisciplinas() {
+	    DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+	    List<Disciplina> disciplinas = disciplinaDAO.listarDisciplinas();
 
-        comboBoxDisciplinas.getItems().addAll(disciplinas);
-    }
+	    //é uma lista usada para observar alterações nos dados
+	    ObservableList<Disciplina> obsDisciplinas = FXCollections.observableArrayList(disciplinas);
+	    comboBoxDisciplinas.setItems(obsDisciplinas);
+	}
+
     
     //Recuperando o ID da disciplina selecionada
     @FXML
@@ -119,10 +98,26 @@ public class PrincipalController {
         ObservableList<Integer> obsSemestres = FXCollections.observableArrayList(semestres);
         comboBoxSemestre.setItems(obsSemestres);
     }
+    
+    //Método para adicionar uma nota, recebendo uma avaliacao como parâmetro
+    private void adicionarNota(Avaliacao avaliacao) {
+    	//System.out.println("Adicionar nota");
+    	try {
+            double valorNota = Double.parseDouble(tfValorNota.getText());
+            int idAvaliacao = avaliacao.getIdAvaliacao(); // Obtendo o ID da avaliação selecionada no ComboBox
+            //System.out.println("Avaliacao nota: " + idAvaliacao);
+            int idAluno = AlunoSessao.getIdAlunoLogado(); //Obtendo o ID do aluno logado
+            Nota nota = new Nota(valorNota, idAvaliacao, idAluno); //Instaciando uma nota, com base nos dados informados
+            NotaDAO notaDAO = new NotaDAO(); //Instanciando DAO
+            notaDAO.cadastrarNota(nota); //Passando nota como parâmetro de cadastro
+        } catch (NumberFormatException e) { //Caso não seja digitado um número
+        	e.printStackTrace();
+        }
+    }
 
     //Método que verifica se uma avaliação existe com base no que foi informado no ComboBox
     @FXML
-    private void buscarAvaliacao() {
+    private void buscarAvaliacao(ActionEvent event) {
         try {
             Disciplina disciplinaSelecionada = comboBoxDisciplinas.getValue();
             String tipoAvaliacao = comboBoxTipoAv.getValue();
@@ -146,8 +141,7 @@ public class PrincipalController {
                 //System.out.println("Avaliação não encontrada.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Erro ao buscar a avaliação!"); //VVV
+            lSttsNota.setText("Preencha os campos!");
         }
     }
 }

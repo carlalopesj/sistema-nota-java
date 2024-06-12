@@ -3,14 +3,6 @@ package sistema.notas.model;
 public class Avaliacao {
 	
 	private int idAvaliacao;
-	public int getIdAvaliacao() {
-		return idAvaliacao;
-	}
-
-	public void setIdAvaliacao(int idAvaliacao) {
-		this.idAvaliacao = idAvaliacao;
-	}
-
 	private String tipoAvaliacao;
 	private int semestre;
 	private int bimestre;
@@ -22,6 +14,14 @@ public class Avaliacao {
 		this.bimestre = bimestre;
 	}
 
+	public int getIdAvaliacao() {
+		return idAvaliacao;
+	}
+
+	public void setIdAvaliacao(int idAvaliacao) {
+		this.idAvaliacao = idAvaliacao;
+	}
+	
 	public String getTipoAvaliacao() {
 		return tipoAvaliacao;
 	}

@@ -24,11 +24,11 @@ public class AvaliacaoDAO {
 	        ps.setInt(3, semestre);
 	        ps.setInt(4, bimestre);
 
-	        try (ResultSet rs = ps.executeQuery()) {
+	        try (ResultSet rs = ps.executeQuery()) { //garante que o ResultSet seja fechado automaticamente quando o bloco for concluído
                 if (rs.next()) {
                     // Recuperando o ID da avaliação, será utilizado para cadastrar uma nota
                     int idAvaliacao = rs.getInt("idAvaliacao");
-                    System.out.println("ID avaliacao" + idAvaliacao);
+                    //System.out.println("ID avaliacao" + idAvaliacao);
                     // Recuperando os outros dados da avaliação
                     String tipoAvaliacaoBusca = rs.getString("tipoAvaliacao");
                     int semestreBusca = rs.getInt("semestre");

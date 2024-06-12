@@ -31,7 +31,7 @@ public class Disciplina {
 	}
 	
 	 @Override
-	 public String toString() {
-	      return nomeDisciplina;
+	 public String toString() { //Sobreescrita
+	      return nomeDisciplina; //Retornar o nome de uma disciplina no comboBox
 	 }
 }
