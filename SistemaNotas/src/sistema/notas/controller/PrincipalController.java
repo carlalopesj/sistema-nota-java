@@ -10,12 +10,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import sistema.notas.model.Avaliacao;
 import sistema.notas.model.Disciplina;
+import sistema.notas.model.Historico;
 import sistema.notas.model.Nota;
 import sistema.notas.model.dao.AvaliacaoDAO;
 import sistema.notas.model.dao.DisciplinaDAO;
+import sistema.notas.model.dao.HistoricoDAO;
 import sistema.notas.model.dao.NotaDAO;
 import sistema.notas.sessao.AlunoSessao;
 
@@ -24,46 +30,77 @@ public class PrincipalController {
 	//Campo nome da disciplina
 	@FXML
     private ComboBox<Disciplina> comboBoxDisciplinas;
-	
 	//Campos referentes a avaliação
 	@FXML
 	private ComboBox<String> comboBoxTipoAv;
 	@FXML
 	private ComboBox<Integer> comboBoxSemestre;
 	@FXML
+	private ToggleGroup bimestreGrupo;
+	@FXML
 	private RadioButton rbBimestre1;
 	@FXML 
 	private RadioButton rbBimestre2;
-	
 	//Campo valorNota
 	@FXML 
 	private TextField tfValorNota;
-	
 	@FXML
 	private Button btnSalvar;
-	
 	//Status das ações
 	@FXML
 	private Label lSttsNota;
+	
+	
+	 @FXML
+	    private TableView<Historico> tableViewHistorico;
+	    @FXML
+	    private TableColumn<Historico, String> colDisciplina;
+	    @FXML
+	    private TableColumn<Historico, Double> colN1;
+	    @FXML
+	    private TableColumn<Historico, Double> colN2;
+	    @FXML
+	    private TableColumn<Historico, Double> colNF;
+	
+	
+	
 	
 	@FXML
     public void initialize() {
         preencherComboBoxDisciplinas();
         preencherComboBoxTipoAvaliacao();
         preencherComboBoxSemestre();
+        
+        //Inicializa os valores das colunas da tabela do histórico
+        colDisciplina.setCellValueFactory(new PropertyValueFactory<>("nomeDisciplina"));
+        colN1.setCellValueFactory(new PropertyValueFactory<>("notaBimestral1"));
+        colN2.setCellValueFactory(new PropertyValueFactory<>("notaBimestral2"));
+        colNF.setCellValueFactory(new PropertyValueFactory<>("mediaSemestral"));
+        exibirHistorico();
     }
 
     //Preenchendo ComboBox com dados do banco por meio de uma List
 	private void preencherComboBoxDisciplinas() {
 	    DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 	    List<Disciplina> disciplinas = disciplinaDAO.listarDisciplinas();
-
 	    //é uma lista usada para observar alterações nos dados
 	    ObservableList<Disciplina> obsDisciplinas = FXCollections.observableArrayList(disciplinas);
 	    comboBoxDisciplinas.setItems(obsDisciplinas);
 	}
-
     
+	private void preencherComboBoxTipoAvaliacao() {
+		AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
+		List<String> tiposAvaliacao = avaliacaoDAO.listarTipoAvaliacao();
+		ObservableList<String> obsTiposAvaliacao = FXCollections.observableArrayList(tiposAvaliacao);
+		comboBoxTipoAv.setItems(obsTiposAvaliacao);
+	}
+	
+	private void preencherComboBoxSemestre() {
+		AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
+		List<Integer> semestres = avaliacaoDAO.listarSemestre();
+		ObservableList<Integer> obsSemestres = FXCollections.observableArrayList(semestres);
+		comboBoxSemestre.setItems(obsSemestres);
+	}
     //Recuperando o ID da disciplina selecionada
     @FXML
     public void comboBoxDisciplinasSelecionada(ActionEvent event) {
@@ -73,32 +110,6 @@ public class PrincipalController {
             System.out.println("ID da disciplina selecionada: " + idDisciplinaSelecionada);
         }
     }
-    
-    //Preenchendo ComboBox com dados do banco por meio de uma List
-    private void preencherComboBoxTipoAvaliacao() {
-        AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
-        List<String> tiposAvaliacao = avaliacaoDAO.listarTipoAvaliacao();
-
-        // Verificar se a lista de tipos de avaliação está sendo recuperada corretamente
-        for (String tipo : tiposAvaliacao) {
-            System.out.println("Tipo de Avaliação no ComboBox: " + tipo);
-        }
-
-        ObservableList<String> obsTiposAvaliacao = FXCollections.observableArrayList(tiposAvaliacao);
-        comboBoxTipoAv.setItems(obsTiposAvaliacao);
-    }
-    
-    //Preenchendo ComboBox com dados do banco por meio de uma List
-    private void preencherComboBoxSemestre() {
-        // Presumindo que o método listarSemestres existe e retorna uma lista de Integers
-        AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
-        List<Integer> semestres = avaliacaoDAO.listarSemestre();
-
-        //VVV
-        ObservableList<Integer> obsSemestres = FXCollections.observableArrayList(semestres);
-        comboBoxSemestre.setItems(obsSemestres);
-    }
-    
     //Método para adicionar uma nota, recebendo uma avaliacao como parâmetro
     private void adicionarNota(Avaliacao avaliacao) {
     	//System.out.println("Adicionar nota");
@@ -114,7 +125,6 @@ public class PrincipalController {
         	e.printStackTrace();
         }
     }
-
     //Método que verifica se uma avaliação existe com base no que foi informado no ComboBox
     @FXML
     private void buscarAvaliacao(ActionEvent event) {
@@ -134,6 +144,7 @@ public class PrincipalController {
 
             if (avaliacao != null) {
             	adicionarNota(avaliacao);
+            	exibirHistorico();
             	lSttsNota.setText("Nota salvada com sucesso. Verifique seu histórico");
                 //System.out.println("Avaliação encontrada: " + avaliacao.getTipoAvaliacao() + ", Semestre: " + avaliacao.getSemestre() + ", Bimestre: " + avaliacao.getBimestre());
             } else {
@@ -143,5 +154,14 @@ public class PrincipalController {
         } catch (Exception e) {
             lSttsNota.setText("Preencha os campos!");
         }
+    }
+    
+    //Método para exibir o histórico por meio de uma lista e utilizando a TableView
+    @FXML
+    private void exibirHistorico() {
+        int idAluno = AlunoSessao.getIdAlunoLogado();
+        HistoricoDAO historicoDAO = new HistoricoDAO();
+        ObservableList<Historico> historicos = FXCollections.observableArrayList(historicoDAO.listarHistorico(idAluno));
+        tableViewHistorico.setItems(historicos);
     }
 }

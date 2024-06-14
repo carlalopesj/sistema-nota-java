@@ -17,42 +17,40 @@
       <TabPane prefHeight="308.0" prefWidth="626.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Notas">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label layoutX="260.0" layoutY="14.0" text="SISTEMA DE NOTAS" />
-                        <Label layoutX="42.0" layoutY="90.0" prefHeight="17.0" prefWidth="73.0" text="Disciplina:" />
-                        <Label layoutX="343.0" layoutY="138.0" text="Semestre:" />
-                        <Label layoutX="42.0" layoutY="138.0" text="Tipo de Avaliação:" />
-                        <Label layoutX="481.0" layoutY="90.0" text="Nota:" />
-                        <TextField fx:id="tfValorNota" layoutX="541.0" layoutY="86.0" prefHeight="25.0" prefWidth="52.0" />
-                        <Button fx:id="btnSalvar" layoutX="561.0" layoutY="239.0" mnemonicParsing="false" onAction="#buscarAvaliacao" text="Salvar" />
-                        <Label layoutX="481.0" layoutY="138.0" text="Bimestre:" />
-                        <RadioButton fx:id="rbBimestre1" layoutX="541.0" layoutY="138.0" mnemonicParsing="false" text="1">
+		    <content>
+		        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+		            <children>
+		                <Label layoutX="260.0" layoutY="14.0" text="SISTEMA DE NOTAS" />
+		                <Label layoutX="42.0" layoutY="90.0" prefHeight="17.0" prefWidth="73.0" text="Disciplina:" />
+		                <Label layoutX="343.0" layoutY="138.0" text="Semestre:" />
+		                <Label layoutX="42.0" layoutY="138.0" text="Tipo de Avaliação:" />
+		                <Label layoutX="481.0" layoutY="90.0" text="Nota:" />
+		                <TextField fx:id="tfValorNota" layoutX="541.0" layoutY="86.0" prefHeight="25.0" prefWidth="52.0" />
+		                <Button fx:id="btnSalvar" layoutX="561.0" layoutY="239.0" mnemonicParsing="false" onAction="#buscarAvaliacao" text="Salvar" />
+		                <Label layoutX="481.0" layoutY="138.0" text="Bimestre:" />
+		                <RadioButton fx:id="rbBimestre1" layoutX="100.0" layoutY="50.0" selected="true" text="Bimestre 1">
                            <toggleGroup>
                               <ToggleGroup fx:id="bimestreGrupo" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="rbBimestre2" layoutX="579.0" layoutY="138.0" mnemonicParsing="false" text="2" toggleGroup="$bimestreGrupo" />
-                        <ComboBox fx:id="comboBoxDisciplinas" layoutX="110.0" layoutY="86.0" onAction="#comboBoxDisciplinasSelecionada" prefHeight="26.0" prefWidth="226.0" />
-                        <ComboBox fx:id="comboBoxTipoAv" layoutX="148.0" layoutY="133.0" onAction="#comboBoxDisciplinasSelecionada" prefHeight="26.0" prefWidth="187.0" />
-                        <ComboBox fx:id="comboBoxSemestre" layoutX="404.0" layoutY="133.0" onAction="#comboBoxDisciplinasSelecionada" prefHeight="26.0" prefWidth="58.0" />
-                        <Label fx:id="lSttsNota" alignment="CENTER" layoutX="-1.0" layoutY="210.0" prefHeight="18.0" prefWidth="626.0" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
+                           </toggleGroup></RadioButton>
+		                <RadioButton fx:id="rbBimestre2" layoutX="200.0" layoutY="50.0" text="Bimestre 2" toggleGroup="$bimestreGrupo" />
+		                <ComboBox fx:id="comboBoxDisciplinas" layoutX="110.0" layoutY="86.0" onAction="#comboBoxDisciplinasSelecionada" prefHeight="26.0" prefWidth="226.0" />
+		                <ComboBox fx:id="comboBoxTipoAv" layoutX="148.0" layoutY="133.0" onAction="#comboBoxDisciplinasSelecionada" prefHeight="26.0" prefWidth="187.0" />
+		                <ComboBox fx:id="comboBoxSemestre" layoutX="404.0" layoutY="133.0" onAction="#comboBoxDisciplinasSelecionada" prefHeight="26.0" prefWidth="58.0" />
+		                <Label fx:id="lSttsNota" alignment="CENTER" layoutX="-1.0" layoutY="210.0" prefHeight="18.0" prefWidth="626.0" />
+		            </children>
+		        </AnchorPane>
+		    </content>
+		  </Tab>
           <Tab text="Histórico">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="248.0" layoutY="235.0" text="EM DESENVOLVIMENTO" />
-                        <TableView prefHeight="226.0" prefWidth="626.0">
+                        <TableView fx:id="tableViewHistorico" prefHeight="226.0" prefWidth="626.0">
                           <columns>
-                            <TableColumn fx:id="colDisciplina" prefWidth="75.0" text="Disciplina" />
-                            <TableColumn fx:id="colN1" prefWidth="75.0" text="N1" />
-                              <TableColumn fx:id="colN2" prefWidth="75.0" text="N2" />
-                              <TableColumn fx:id="colNF" prefWidth="75.0" text="NF" />
+                            <TableColumn fx:id="colDisciplina" prefWidth="200.0" text="Disciplina" />
+                            <TableColumn fx:id="colN1" prefWidth="100.0" text="N1" />
+                            <TableColumn fx:id="colN2" prefWidth="100.0" text="N2" />
+                            <TableColumn fx:id="colNF" prefWidth="100.0" text="NF" />
                           </columns>
                         </TableView>
                      </children>
