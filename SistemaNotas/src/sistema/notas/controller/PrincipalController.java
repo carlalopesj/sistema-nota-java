@@ -1,9 +1,7 @@
 package sistema.notas.controller;
 
-import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
