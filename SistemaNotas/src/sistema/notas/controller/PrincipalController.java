@@ -1,5 +1,7 @@
 package sistema.notas.controller;
 
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -50,20 +52,29 @@ public class PrincipalController {
 	@FXML
 	private Label lSttsNota;
 	
-	
-	 @FXML
-	    private TableView<Historico> tableViewHistorico;
-	    @FXML
-	    private TableColumn<Historico, String> colDisciplina;
-	    @FXML
-	    private TableColumn<Historico, Double> colN1;
-	    @FXML
-	    private TableColumn<Historico, Double> colN2;
-	    @FXML
-	    private TableColumn<Historico, Double> colNF;
-	
-	
-	
+	//Parte da tabela
+	@FXML
+	private TableView<Historico> tableViewHistorico;
+	@FXML
+	private TableColumn<Historico, String> colDisciplina;
+	@FXML
+	private TableColumn<Historico, Double> colN1;
+	@FXML
+	private TableColumn<Historico, Double> colN2;
+	@FXML
+	private TableColumn<Historico, Double> colNF;
+	@FXML
+	private TableColumn<Historico, Double> colNR;
+	@FXML
+	private TableColumn<Historico, Double> colMF;
+	@FXML
+	private Label lStatusAluno;
+	@FXML
+	private TextField tfNotaRec;
+	@FXML 
+	private Button btnAddNotaRec;
+
+	DecimalFormat df = new DecimalFormat("#.##"); //Formatar 2 casas decimais, após a vírgula
 	
 	@FXML
     public void initialize() {
@@ -76,6 +87,8 @@ public class PrincipalController {
         colN1.setCellValueFactory(new PropertyValueFactory<>("notaBimestral1"));
         colN2.setCellValueFactory(new PropertyValueFactory<>("notaBimestral2"));
         colNF.setCellValueFactory(new PropertyValueFactory<>("mediaSemestral"));
+        colNR.setCellValueFactory(new PropertyValueFactory<>("notaRecuperacao"));
+        colMF.setCellValueFactory(new PropertyValueFactory<>("mediaFinal"));
         exibirHistorico();
     }
 
@@ -83,7 +96,7 @@ public class PrincipalController {
 	private void preencherComboBoxDisciplinas() {
 	    DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 	    List<Disciplina> disciplinas = disciplinaDAO.listarDisciplinas();
-	    //é uma lista usada para observar alterações nos dados
+	    //É uma lista usada para observar alterações nos dados
 	    ObservableList<Disciplina> obsDisciplinas = FXCollections.observableArrayList(disciplinas);
 	    comboBoxDisciplinas.setItems(obsDisciplinas);
 	}
@@ -101,7 +114,7 @@ public class PrincipalController {
 		ObservableList<Integer> obsSemestres = FXCollections.observableArrayList(semestres);
 		comboBoxSemestre.setItems(obsSemestres);
 	}
-    //Recuperando o ID da disciplina selecionada
+    //Recuperando o ID da disciplina selecionada para adicionar uma avaliação e depois uma nota
     @FXML
     public void comboBoxDisciplinasSelecionada(ActionEvent event) {
         Disciplina disciplinaSelecionada = comboBoxDisciplinas.getValue();
@@ -144,12 +157,11 @@ public class PrincipalController {
 
             if (avaliacao != null) {
             	adicionarNota(avaliacao);
+            	//Atualiza o histórico conforme notas forem adicionadas
             	exibirHistorico();
             	lSttsNota.setText("Nota salvada com sucesso. Verifique seu histórico");
-                //System.out.println("Avaliação encontrada: " + avaliacao.getTipoAvaliacao() + ", Semestre: " + avaliacao.getSemestre() + ", Bimestre: " + avaliacao.getBimestre());
             } else {
             	lSttsNota.setText("Avaliação não encontrada no sistema. Tente novamente.");
-                //System.out.println("Avaliação não encontrada.");
             }
         } catch (Exception e) {
             lSttsNota.setText("Preencha os campos!");
@@ -164,4 +176,67 @@ public class PrincipalController {
         ObservableList<Historico> historicos = FXCollections.observableArrayList(historicoDAO.listarHistorico(idAluno));
         tableViewHistorico.setItems(historicos);
     }
+    
+    //Método para receber dados ao clicar em uma linha da tabela
+    @FXML
+    private void tbHistoricoClicar() {
+    	int i = tableViewHistorico.getSelectionModel().getFocusedIndex();
+    	Historico historico = tableViewHistorico.getItems().get(i); //Armazena em um histórico
+    	System.out.println(historico);
+    	calcularResultado(historico); //Calcula o resultado e mostra na tela o status
+    }
+    
+    //Calcular a nota com base em algumas condições
+    private void calcularResultado(Historico historicoSel) {
+    	if (historicoSel.getNotaBimestral2() == 0.0) {
+    		double notaB1 = historicoSel.getNotaBimestral1();
+    		double notaB2 = 12 - notaB1;
+    		lStatusAluno.setText("Você precisa tirar " + df.format(notaB2) + "no 2º Bimestre.");
+    	}
+    	if (historicoSel.getNotaBimestral1() == 0.0) {
+    		double notaB2 = historicoSel.getNotaBimestral2();
+    		double notaB1 = 12 - notaB2;
+    		lStatusAluno.setText("Você precisa ter tirado " + df.format(notaB1) + "no 1º Bimestre.");
+    	}
+    	if (historicoSel.getNotaBimestral1() != 0.0 && historicoSel.getNotaBimestral2() != 0.0) {
+    		if (historicoSel.getMediaSemestral() >= 6.0) { 
+    			lStatusAluno.setText("Parábens, você foi aprovado!!!");
+    			historicoSel.setMediaFinal(historicoSel.getMediaSemestral());
+    		} else {
+    			double pontosRestantes = 12 - historicoSel.getMediaSemestral();
+    			lStatusAluno.setText("Você está de recuperação. Faça a prova de recuperação e tire: " + pontosRestantes);
+    		}
+    	}
+    	
+    }
+    
+    //Adiciona uma nota de recuperação ao clicar no botão de adicionar
+    @FXML
+    private void adicionarNotaRecuperacao() {
+    	//Recupera a linha que foi selecionada
+    	int i = tableViewHistorico.getSelectionModel().getFocusedIndex();
+    	Historico historicoSel = tableViewHistorico.getItems().get(i);
+    	
+            try {
+            	//Difine a nota de recuperacao e a mediaFinal no histórico
+                double notaRecuperacao = Double.parseDouble(tfNotaRec.getText());
+                historicoSel.setNotaRecuperacao(notaRecuperacao);
+                double mediaFinal = (historicoSel.getMediaSemestral() + notaRecuperacao) / 2;
+                historicoSel.setMediaFinal(mediaFinal);
+
+                if (mediaFinal >= 6.0) {
+                    lStatusAluno.setText("Parabéns, você foi aprovado na recuperação!");
+                } else {
+                    lStatusAluno.setText("Infelizmente, você não foi aprovado. ");
+                }
+                
+                HistoricoDAO historicoDAO = new HistoricoDAO(); //Instanciando DAO
+                historicoDAO.adicionarNotaRecuperacao(historicoSel); //Adicionando a nota
+                // Atualizar a tabela
+                tableViewHistorico.refresh();
+            } catch (NumberFormatException e) { //Caso não insira um número
+                lStatusAluno.setText("Por favor, insira um valor válido para a nota de recuperação.");
+            }
+     }
+ 
 }
