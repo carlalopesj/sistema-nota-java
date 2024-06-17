@@ -11,53 +11,94 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="412.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.notas.controller.PrincipalController">
+<AnchorPane prefHeight="346.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.notas.controller.PrincipalController">
    <children>
-      <TabPane prefHeight="412.0" prefWidth="786.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="346.0" prefWidth="699.0" style="-fx-background-color: #ffffff;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Notas">
 		    <content>
-		        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+		        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="303.0" prefWidth="699.0" style="-fx-background-color: #f1edf5;">
 		            <children>
-		                <Label layoutX="342.0" layoutY="14.0" text="SISTEMA DE NOTAS" />
-		                <Label layoutX="42.0" layoutY="90.0" prefHeight="17.0" prefWidth="73.0" text="Disciplina:" />
-		                <Label layoutX="343.0" layoutY="138.0" text="Semestre:" />
-		                <Label layoutX="42.0" layoutY="138.0" text="Tipo de Avaliação:" />
-		                <Label layoutX="481.0" layoutY="90.0" text="Nota:" />
-		                <TextField fx:id="tfValorNota" layoutX="541.0" layoutY="86.0" prefHeight="25.0" prefWidth="52.0" />
-		                <Button fx:id="btnSalvar" layoutX="710.0" layoutY="333.0" mnemonicParsing="false" onAction="#buscarAvaliacao" text="Salvar" />
-		                <RadioButton fx:id="rbBimestre1" layoutX="522.0" layoutY="138.0" selected="true" text="Bimestre 1">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="bimestreGrupo" />
-                           </toggleGroup></RadioButton>
-		                <RadioButton fx:id="rbBimestre2" layoutX="614.0" layoutY="138.0" text="Bimestre 2" toggleGroup="$bimestreGrupo" />
-		                <ComboBox fx:id="comboBoxDisciplinas" layoutX="110.0" layoutY="86.0" onAction="#comboBoxDisciplinasSelecionada" prefHeight="26.0" prefWidth="226.0" />
-		                <ComboBox fx:id="comboBoxTipoAv" layoutX="148.0" layoutY="133.0" onAction="#comboBoxDisciplinasSelecionada" prefHeight="26.0" prefWidth="187.0" />
-		                <ComboBox fx:id="comboBoxSemestre" layoutX="404.0" layoutY="133.0" onAction="#comboBoxDisciplinasSelecionada" prefHeight="26.0" prefWidth="58.0" />
-		                <Label fx:id="lSttsNota" alignment="CENTER" layoutX="-1.0" layoutY="210.0" prefHeight="18.0" prefWidth="626.0" />
+		                <Label layoutX="23.0" layoutY="22.0" prefHeight="24.0" prefWidth="206.0" text="SISTEMA DE NOTAS" textFill="#1e0b40">
+                           <font>
+                              <Font name="Georgia" size="18.0" />
+                           </font></Label>
+		                <Button fx:id="btnSalvar" layoutX="613.0" layoutY="256.0" mnemonicParsing="false" onAction="#buscarAvaliacao" prefHeight="32.0" prefWidth="68.0" style="-fx-background-color: #42335D; -fx-background-radius: 15; -fx-cursor: pointer;" text="Salvar" textFill="WHITE">
+                           <font>
+                              <Font name="Georgia" size="14.0" />
+                           </font></Button>
+                        <Pane layoutX="12.0" layoutY="59.0" prefHeight="160.0" prefWidth="673.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;">
+                           <children>
+      		                <Label layoutX="17.0" layoutY="14.0" prefHeight="17.0" prefWidth="93.0" text="Disciplina:">
+                                 <font>
+                                    <Font name="Georgia Bold" size="14.0" />
+                                 </font>
+                              </Label>
+      		                <ComboBox fx:id="comboBoxDisciplinas" layoutX="17.0" layoutY="39.0" prefHeight="27.0" prefWidth="440.0" style="-fx-background-color: #ffffff; -fx-border-color: black; -fx-border-radius: 5;" />
+      		                <Label layoutX="17.0" layoutY="84.0" text="Tipo de Avaliação:">
+                                 <font>
+                                    <Font name="Georgia Bold" size="14.0" />
+                                 </font>
+                              </Label>
+      		                <ComboBox fx:id="comboBoxTipoAv" layoutX="17.0" layoutY="108.0" prefHeight="27.0" prefWidth="294.0" style="-fx-background-color: #ffffff; -fx-border-color: black; -fx-border-radius: 5;" />
+      		                <Label layoutX="384.0" layoutY="84.0" text="Semestre:">
+                                 <font>
+                                    <Font name="Georgia Bold" size="14.0" />
+                                 </font>
+                              </Label>
+      		                <ComboBox fx:id="comboBoxSemestre" layoutX="384.0" layoutY="106.0" prefHeight="26.0" prefWidth="72.0" style="-fx-background-color: #ffffff; -fx-border-color: black; -fx-border-radius: 5;" />
+      		                <RadioButton fx:id="rbBimestre1" layoutX="543.0" layoutY="44.0" selected="true" text="1" textFill="#0c1665">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="bimestreGrupo" />
+                                 </toggleGroup>
+                                 <font>
+                                    <Font name="Georgia Bold" size="13.0" />
+                                 </font>
+                              </RadioButton>
+      		                <RadioButton fx:id="rbBimestre2" layoutX="588.0" layoutY="44.0" text="2" textFill="#0c1665" toggleGroup="$bimestreGrupo">
+                                 <font>
+                                    <Font name="Georgia Bold" size="13.0" />
+                                 </font>
+                              </RadioButton>
+                              <Label layoutX="543.0" layoutY="17.0" text="Bimestre:">
+                                 <font>
+                                    <Font name="Georgia Bold" size="14.0" />
+                                 </font>
+                              </Label>
+      		                <Label layoutX="543.0" layoutY="84.0" text="Nota:">
+                                 <font>
+                                    <Font name="Georgia Bold" size="14.0" />
+                                 </font>
+                              </Label>
+      		                <TextField fx:id="tfValorNota" layoutX="542.0" layoutY="106.0" prefHeight="27.0" prefWidth="57.0" style="-fx-background-color: #ffffff; -fx-border-color: black; -fx-border-radius: 5;" />
+                           </children>
+                        </Pane>
+		                <Label fx:id="lSttsNota" alignment="CENTER" layoutX="15.0" layoutY="231.0" prefHeight="18.0" prefWidth="669.0" />
 		            </children>
 		        </AnchorPane>
 		    </content>
 		  </Tab>
           <Tab text="Histórico">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="370.0" prefWidth="786.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="370.0" prefWidth="786.0" style="-fx-background-color: #f1edf5;">
                      <children>
-                        <TableView fx:id="tableViewHistorico" onMouseClicked="#tbHistoricoClicar" prefHeight="290.0" prefWidth="786.0">
+                        <TableView fx:id="tableViewHistorico" onMouseClicked="#tbHistoricoClicar" prefHeight="253.0" prefWidth="699.0" style="-fx-background-color: #e2e2e2;">
                           <columns>
-                            <TableColumn fx:id="colDisciplina" prefWidth="200.0" text="Disciplina" />
+                            <TableColumn fx:id="colDisciplina" prefWidth="195.0" text="Disciplina" />
                             <TableColumn fx:id="colN1" prefWidth="100.0" text="N1" />
                             <TableColumn fx:id="colN2" prefWidth="100.0" text="N2" />
-                            <TableColumn fx:id="colNF" prefWidth="100.0" text="NF" />
-                              <TableColumn fx:id="colNR" prefWidth="105.0" text="NR" />
-                              <TableColumn fx:id="colMF" prefWidth="114.0" text="MF" />
+                            <TableColumn fx:id="colNF" prefWidth="89.0" text="NF" />
+                              <TableColumn fx:id="colNR" prefWidth="100.0" text="NR" />
+                              <TableColumn fx:id="colMF" prefWidth="135.0" text="MF" />
                           </columns>
                         </TableView>
-                        <Label fx:id="lStatusAluno" alignment="CENTER" contentDisplay="CENTER" layoutY="240.0" prefHeight="17.0" prefWidth="626.0" />
-                        <TextField fx:id="tfNotaRec" layoutX="161.0" layoutY="307.0" prefHeight="25.0" prefWidth="52.0" />
-                        <Label layoutX="42.0" layoutY="311.0" text="Nota de recuperação" />
-                        <Button fx:id="btnAddNotaRec" layoutX="236.0" layoutY="307.0" mnemonicParsing="false" onAction="#adicionarNotaRecuperacao" text="Adicionar" />
+                        <Label fx:id="lStatusAluno" alignment="CENTER" contentDisplay="CENTER" layoutY="277.0" prefHeight="17.0" prefWidth="429.0" />
+                        <TextField fx:id="tfNotaRec" disable="true" layoutX="550.0" layoutY="273.0" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #ffffff; -fx-border-color: black; -fx-border-radius: 5;" />
+                        <Label fx:id="lNotaRec" disable="true" layoutX="431.0" layoutY="277.0" text="Nota de recuperação" />
+                        <Button fx:id="btnAddNotaRec" disable="true" layoutX="618.0" layoutY="274.0" mnemonicParsing="false" onAction="#adicionarNotaRecuperacao" style="-fx-background-color: #42335D; -fx-background-radius: 15; -fx-cursor: pointer;" text="Adicionar" textFill="WHITE" />
                      </children>
                   </AnchorPane>
             </content>

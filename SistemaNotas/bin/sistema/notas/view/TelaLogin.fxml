@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="603.0" maxWidth="460.0" minHeight="460.0" minWidth="377.0" prefHeight="603.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.notas.controller.AlunoController">
+<AnchorPane maxHeight="603.0" maxWidth="460.0" minHeight="460.0" minWidth="377.0" prefHeight="600.0" prefWidth="448.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistema.notas.controller.AlunoController">
    <children>
-      <Pane maxHeight="603.0" prefHeight="603.0" prefWidth="448.0" style="-fx-background-color: #170B2A;">
+      <Pane maxHeight="603.0" prefHeight="600.0" prefWidth="448.0" style="-fx-background-color: #170B2A;">
          <children>
             <Pane layoutX="80.0" layoutY="46.0" prefHeight="511.0" prefWidth="288.0" style="-fx-background-color: #42335D; -fx-background-radius: 20;">
                <children>
