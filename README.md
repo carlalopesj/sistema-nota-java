@@ -15,7 +15,10 @@ Veja algumas imagens do resultado:
 
 ![Tela de Login](https://github.com/user-attachments/assets/9231d0df-cf5c-4bc8-92eb-6f7d02e10ac2)
 
-![Cadastro de Notas](https://github.com/user-attachments/assets/64aa767a-b4ee-4145-97eb-5ebb972d9102)
+![Cadastro de Notas](https://github.com/user-attachments/assets/14b941f6-b911-4460-99ce-d6ca8899a02d)
 
-![Histórico](https://github.com/user-attachments/assets/14b941f6-b911-4460-99ce-d6ca8899a02d)
+Outro ponto interessante que pude aprender, foi sobre como preencher tabelas no java, como base nas linhas do banco de dados:
+
+![Histórico](https://github.com/user-attachments/assets/64aa767a-b4ee-4145-97eb-5ebb972d9102)
+
 
